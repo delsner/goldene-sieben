@@ -37,3 +37,7 @@ int Card::compare(Card c1, Card c2) {
         return 0;
     }
 }
+
+bool Card::equals(Card c1, Card c2) {
+    return c1.getValue_() == c2.getValue_() && c1.color_ == c2.color_;
+}

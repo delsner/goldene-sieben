@@ -26,6 +26,9 @@ public:
 
     // compare method (1 first higher, 0 equal, -1 second higher)
     static int compare(Card c1, Card c2);
+
+    // compare if equal card
+    static bool equals(Card c1, Card c2);
 };
 
 #endif //GOLDENE_SIEBEN_CARD_H

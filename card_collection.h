@@ -5,16 +5,18 @@
 #ifndef GOLDENE_SIEBEN_CARD_COLLECTION_H
 #define GOLDENE_SIEBEN_CARD_COLLECTION_H
 
+#include <iostream>
+#include <vector>
 #include "card.h"
 
-const int kMaxLength = 40;
-
 class CardCollection {
-    Card cards_[kMaxLength];
+    std::vector<Card> cards_;
 public:
     void add_card_to_collection(Card card);
 
     void remove_card_from_collection(Card card);
+
+    bool contains(Card card);
 };
 
 
