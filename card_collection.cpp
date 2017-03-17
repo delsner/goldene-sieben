@@ -1,3 +1,4 @@
+
 //
 // Created by Daniel Elsner on 17.03.17.
 //
@@ -25,4 +26,25 @@ bool CardCollection::contains(Card card) {
         }
     }
     return false;
+}
+
+int CardCollection::length() {
+    return cards_.size();
+}
+
+// Zum Zählen der Buben, Damen, Könige
+int CardCollection::amount_larger_than_number(CardValue value) {
+    int sum = 0;
+    for (int i = 0; i < cards_.size(); i++) {
+        if (cards_[i].getValue_() > value) { sum++;}
+    }
+    return sum;
+}
+
+int CardCollection::amount_of_color(Color color) {
+    int sum = 0;
+    for (int i = 0; i < cards_.size(); i++) {
+        if (cards_[i].getColor_() == color) { sum++;}
+    }
+    return sum;
 }

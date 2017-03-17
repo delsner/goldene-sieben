@@ -16,6 +16,12 @@ public:
 
     void remove_card_from_collection(Card card);
 
+    int length();
+
+    int amount_larger_than_number(CardValue value);
+
+    int amount_of_color(Color color);
+
     bool contains(Card card);
 };
 

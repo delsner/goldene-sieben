@@ -6,19 +6,12 @@
 
 using namespace std;
 
-Card::Card(const Color &color_, int value_) {
+Card::Card(const Color &color_, const CardValue &value_) {
     cout << "Create new card." << endl;
     Card::color_ = color_;
     Card::value_ = value_;
 }
 
-int Card::getValue_() {
-    return value_;
-}
-
-void Card::setValue_(int value_) {
-    Card::value_ = value_;
-}
 
 const Color &Card::getColor_() {
     return color_;
@@ -40,4 +33,12 @@ int Card::compare(Card c1, Card c2) {
 
 bool Card::equals(Card c1, Card c2) {
     return c1.getValue_() == c2.getValue_() && c1.color_ == c2.color_;
+}
+
+CardValue Card::getValue_() const {
+    return value_;
+}
+
+void Card::setValue_(CardValue value_) {
+    Card::value_ = value_;
 }

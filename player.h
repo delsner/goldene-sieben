@@ -18,9 +18,13 @@ class Player {
     // Stiche
     CardCollection stack_;
 
-    // Extra-Punkte
-    int extra_points_;
+    // Extra-Punkte für Pool geleert
+    int pool_cleared_;
+
 public:
+    // Initialisiere Extrapoints auf 0
+    Player();
+
     // Handkarten spielen oder erhalten
     void add_cards_to_inventory(Card cards[]);
 
@@ -38,8 +42,18 @@ public:
     // Anfrage an Spieler eine Karte zu spielen
     Draw request();
 
-    // Rechne Stiche zusammen
-    int count_score();
+    // Rechne Karten zusammen
+    int count_cards();
+
+    // Rechne Bilder zusammen
+    int count_pictures();
+
+    // Rechne Karos zusammen
+    int count_karo();
+
+    // Hole Extrapunkte
+    int getExtra_points_();
+
 
 };
 
