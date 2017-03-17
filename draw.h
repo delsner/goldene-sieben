@@ -5,13 +5,14 @@
 #ifndef GOLDENE_SIEBEN_ZUG_H
 #define GOLDENE_SIEBEN_ZUG_H
 
-
+#include <iostream>
+#include <vector>
 #include "card.h"
 
 class Draw {
 public:
     Card card_played;
-    Card cards_taken[];
+    std::vector<Card> cards_taken;
 };
 
 
