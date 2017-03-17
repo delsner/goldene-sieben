@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+# Exclude editor config
+.idea
+cmake-build-debug
+
