@@ -5,6 +5,7 @@
 #ifndef GOLDENE_SIEBEN_PLAYER_H
 #define GOLDENE_SIEBEN_PLAYER_H
 
+#include <ostream>
 #include "card.h"
 #include "card_collection.h"
 #include "draw.h"
@@ -21,6 +22,8 @@ class Player {
     // Extra-Punkte für Pool geleert
     int pool_cleared_;
 
+    // Punktestand
+    int score_;
 public:
     // Initialisiere Extrapoints auf 0
     Player();
@@ -28,6 +31,7 @@ public:
     // get inventory
     CardCollection getInventory_();
 
+    void add_amount_to_score(int amount);
     // Handkarten spielen oder erhalten
     void add_cards_to_inventory(std::vector<Card> cards);
 
@@ -43,7 +47,7 @@ public:
     void reset();
 
     // Anfrage an Spieler eine Karte zu spielen
-    Draw request();
+    Draw request(CardCollection pool);
 
     // Rechne Karten zusammen
     int count_cards();
@@ -63,7 +67,13 @@ public:
     // Print Stack
     void print_stack();
 
+    // Request card played
+    int request_card_played(int max_index);
 
+    // Request cards taken
+    std::vector<int> request_cards_taken(int max_index);
+
+    friend ostream &operator<<(ostream &os, const Player &player);
 };
 
 

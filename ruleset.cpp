@@ -8,12 +8,19 @@
 
 bool Ruleset::check_sum_(Draw draw) {
     int sum = 0;
+
+    if (draw.cards_taken.size() == 0) {
+        return true;
+    }
+
     for (int i = 0; i < draw.cards_taken.size(); i++) {
         sum = sum + draw.cards_taken[i].getValue_().getValue_();
     }
+
     if (draw.card_played.getValue_().getValue_() == sum) {
         return true;
     }
+
     return false;
 }
 
@@ -23,7 +30,9 @@ bool Ruleset::check_card_inventory_(Draw draw, CardCollection inventory) {
 
 bool Ruleset::check_card_pool_(Draw draw, CardCollection pool) {
     for (int i = 0; i < draw.cards_taken.size(); i++) {
-        if (pool.contains(draw.cards_taken[i]) == false) { return false; };
+        if (!pool.contains(draw.cards_taken[i])) {
+            return false;
+        };
     }
     return true;
 }

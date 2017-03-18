@@ -37,7 +37,9 @@ int CardCollection::length() {
 int CardCollection::amount_larger_than_number(CardValue value) {
     int sum = 0;
     for (int i = 0; i < cards_.size(); i++) {
-        if (cards_[i].getValue_().getValue_() > value.getValue_()) { sum++; }
+        if (cards_[i].getValue_().getValue_() > value.getValue_()) {
+            sum++;
+        }
     }
     return sum;
 }
@@ -45,14 +47,16 @@ int CardCollection::amount_larger_than_number(CardValue value) {
 int CardCollection::amount_of_color(Color color) {
     int sum = 0;
     for (int i = 0; i < cards_.size(); i++) {
-        if (cards_[i].getColor_() == color) { sum++; }
+        if (cards_[i].getColor_() == color) {
+            sum++;
+        }
     }
     return sum;
 }
 
 void CardCollection::print_all_cards() {
     for (int i = 0; i < cards_.size(); i++) {
-        cout << cards_[i].getColor_() << cards_[i].getValue_() << endl;
+        cout << "Karte an Index " << i << ": " << cards_[i].getColor_() << cards_[i].getValue_() << endl;
     }
 }
 

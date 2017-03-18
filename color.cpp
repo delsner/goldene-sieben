@@ -41,6 +41,6 @@ bool Color::operator!=(const Color &rhs) const {
 }
 
 ostream &operator<<(ostream &os, const Color &color) {
-    os << " name_: " << color.name_;
+    os << color.name_ << " ";
     return os;
 }

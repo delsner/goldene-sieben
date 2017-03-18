@@ -41,7 +41,8 @@ void Game::deal_cards_() {
             }
         } else {
             // all done last player who won a trick gets rest of pool and remove from pool
-            last_trick_taken_.add_cards_to_stack(pool_.get_first_cards(pool_.length())); // TODO: be aware of indices (get_first_cards amount - 1 ?)
+            last_trick_taken_.add_cards_to_stack(
+                    pool_.get_first_cards(pool_.length())); // TODO: be aware of indices (get_first_cards amount - 1 ?)
         }
     } else {
         // TODO: implement game for 3 players
@@ -49,30 +50,39 @@ void Game::deal_cards_() {
 }
 
 void Game::play_round_(Player &player) {
-    Draw d = player.request();
+    Draw d = player.request(pool_);
     while (!Ruleset::validate(d, pool_, player.getInventory_())) {
-        cout << "requesting again" << endl;
-        d = player.request();
+        cout << "Fehlerhafte Eingabe, bitte erneut probieren!" << endl;
+        d = player.request(pool_);
     }
     play_draw_(d, player);
-
 }
 
 void Game::play_draw_(Draw d, Player &player) {
-    // entferne karten aus pool
-    for (int i = 0; i < d.cards_taken.size(); i++) {
-        pool_.remove_card_from_collection(d.cards_taken[i]);
-    }
+    // dazulegen ist immer ok
+    if (d.cards_taken.size() == 0) {
+        pool_.add_card_to_collection(d.card_played);
+    } else {
+        // entferne karten aus pool
+        for (int i = 0; i < d.cards_taken.size(); i++) {
+            pool_.remove_card_from_collection(d.cards_taken[i]);
+        }
 
-    // speichere den Spieler der als letztes Karten aus dem Pool genommen hat
-    if (d.cards_taken > 0) {
-        last_trick_taken_ = player;
-    }
+        // speichere den Spieler der als letztes Karten aus dem Pool genommen hat
+        if (d.cards_taken.size() > 0) {
+            last_trick_taken_ = player;
+        }
 
-    // nehme karten aus pool + selbst gespielte karte und lege sie in eigenen Stich-stapel
-    std::vector<Card> cards_to_stack = d.cards_taken; //speichere karten aus pool
-    cards_to_stack.push_back(d.card_played); // fuege dem vector gespielte karte hinzu
-    player.add_cards_to_stack(cards_to_stack); // fuege den gesamten vector auf Stich-stapel hinzu
+        // wenn pool gecleared, erhöhe Sonderpunkte
+        if (d.cards_taken.size() > 0 && d.cards_taken.size() == pool_.length()) {
+            player.increment_extra_points();
+        }
+
+        // nehme karten aus pool + selbst gespielte karte und lege sie in eigenen Stich-stapel
+        std::vector<Card> cards_to_stack = d.cards_taken; //speichere karten aus pool
+        cards_to_stack.push_back(d.card_played); // fuege dem vector gespielte karte hinzu
+        player.add_cards_to_stack(cards_to_stack); // fuege den gesamten vector auf Stich-stapel hinzu
+    }
 
     // entferne gespielte Karte aus Hand
     std::vector<Card> cards_from_inventory = {d.card_played};
@@ -80,7 +90,57 @@ void Game::play_draw_(Draw d, Player &player) {
 }
 
 void Game::evaluate_round_() {
+    int max_count_cards = 0;
+    std::vector<int> max_count_cards_player_index;
 
+    int max_count_pictures = 0;
+    std::vector<int> max_count_pictures_player_index;
+
+    int max_count_karo = 0;
+    std::vector<int> max_count_karo_player_index;
+
+    for (int i = 0; i < players_.size(); i++) {
+        if (players_[i].count_cards() >= max_count_cards) {
+            max_count_cards = players_[i].count_cards();
+            if (players_[i].count_cards() > max_count_cards) {
+                max_count_cards_player_index = {};
+            }
+            max_count_cards_player_index.push_back(i);
+        }
+
+        if (players_[i].count_pictures() >= max_count_pictures) {
+            max_count_pictures = players_[i].count_pictures();
+            if (players_[i].count_pictures() > max_count_pictures) {
+                max_count_pictures_player_index = {};
+            }
+            max_count_pictures_player_index.push_back(i);
+        }
+
+        if (players_[i].count_karo() >= max_count_karo) {
+            max_count_karo = players_[i].count_karo();
+            if (players_[i].count_karo() > max_count_karo) {
+                max_count_karo_player_index = {};
+            }
+            max_count_karo_player_index.push_back(i);
+        }
+    }
+
+    for (int i : max_count_cards_player_index) {
+        players_[i].add_amount_to_score(1);
+    }
+
+    for (int i : max_count_pictures_player_index) {
+        players_[i].add_amount_to_score(1);
+    }
+
+    for (int i : max_count_karo_player_index) {
+        players_[i].add_amount_to_score(1);
+    }
+
+    for (int i = 0; i < players_.size(); i++) {
+        players_[i].add_amount_to_score(players_[i].getExtra_points_());
+        cout << "Player " << i << ", " << players_[i] << endl;
+    }
 }
 
 void Game::create_players_(int amount) {
@@ -102,13 +162,13 @@ void Game::create_card_deck_() {
                                          CardValue::DAME, CardValue::KOENIG};
     for (int i = 0; i < all_colors.size(); i++) {
         for (int j = 0; j < all_values.size(); j++) {
-            rest_stack_.add_card_to_collection(Card(all_colors[i], all_values[i]));
+            rest_stack_.add_card_to_collection(Card(all_colors[i], all_values[j]));
         }
     }
 }
 
 void Game::start() {
-    cout << "Starting new Game of Goldene 7" << endl;
+    cout << "Ein neues Spiel Goldene 7 hat begonnen!" << endl;
 
     // create 2-3 players
     create_players_(2);
@@ -121,13 +181,13 @@ void Game::start() {
 
     // loop
     // play round
-    while (rest_stack_.length() != 0 && pool_.length() != 0) {
+    while (rest_stack_.length() > 0 || pool_.length() > 0) {
         // deal cards
         deal_cards_();
 
-        // while still inventory > 0 keep requesting rounds
+        // solange Spieler noch Handkarten haben wird weiter gespielt
         while (players_[0].getInventory_().length() > 0) {
-            // play round
+            // Eine Runde spielen -> eine Runde bedeutet beide Spieler spielen 1 Karte
             for (int p = 0; p < players_.size(); p++) {
                 play_round_(players_[p]);
             }
@@ -135,6 +195,7 @@ void Game::start() {
     }
 
     // evaluate round - prints which player has won the game and their scores
+    evaluate_round_();
 
     // reset
 }

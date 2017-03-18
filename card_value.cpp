@@ -47,6 +47,6 @@ bool CardValue::operator!=(const CardValue &rhs) const {
 }
 
 ostream &operator<<(ostream &os, const CardValue &value) {
-    os << " name_: " << value.name_;
+    os << value.name_ << " ";
     return os;
 }
