@@ -40,9 +40,11 @@ void Player::reset() {
     stack_ = *(new CardCollection);
 }
 
+/*
 Draw Player::request() {
     return Draw();
 }
+*/
 
 int Player::getExtra_points_() {
     return pool_cleared_ + stack_.contains(Card(Color::KARO, CardValue::SIEBEN));
@@ -58,4 +60,12 @@ int Player::count_pictures() {
 
 int Player::count_karo() {
     return stack_.amount_of_color(Color::KARO);
+}
+
+void Player::print_inventory() {
+    inventory_.print_all_cards();
+}
+
+void Player::print_stack() {
+    stack_.print_all_cards();
 }

@@ -23,6 +23,9 @@ public:
     int amount_of_color(Color color);
 
     bool contains(Card card);
+
+    // Für die Ausgabe der Karten in Konsole
+    void print_all_cards();
 };
 
 

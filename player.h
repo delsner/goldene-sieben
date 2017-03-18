@@ -54,6 +54,12 @@ public:
     // Hole Extrapunkte
     int getExtra_points_();
 
+    // Print Inventory
+    void print_inventory();
+
+    // Print Stack
+    void print_stack();
+
 
 };
 
