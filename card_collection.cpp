@@ -4,6 +4,7 @@
 //
 
 #include <iostream>
+#include <sys/time.h>
 #include "card.h"
 #include "card_collection.h"
 
@@ -60,12 +61,22 @@ void CardCollection::print_all_cards() {
     }
 }
 
-int get_random_number_(int i) {
+int random_number_(int i) {
+    struct timeval time;
+    gettimeofday(&time, NULL);
+
+    // microsecond has 1 000 000
+    // Assuming you did not need quite that accuracy
+    // Also do not assume the system clock has that accuracy.
+    // If you use 100 (rather than 1000) the seed repeats every 248 days.
+    srand((time.tv_sec * 100) + (time.tv_usec / 100));
+
+
     return std::rand() % i;
 }
 
 void CardCollection::shuffle_cards() {
-    std::random_shuffle(cards_.begin(), cards_.end(), get_random_number_);
+    std::random_shuffle(cards_.begin(), cards_.end(), random_number_);
 }
 
 std::vector<Card> CardCollection::get_first_cards(int amount) {
