@@ -15,7 +15,7 @@ class Card {
     Color color_;
     CardValue value_;
 public:
-    Card(const Color &color_, const CardValue &value_);
+    Card(const Color &color_, CardValue value_);
 
     const Color &getColor_();
 

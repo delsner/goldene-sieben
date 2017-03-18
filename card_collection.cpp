@@ -36,7 +36,7 @@ int CardCollection::length() {
 int CardCollection::amount_larger_than_number(CardValue value) {
     int sum = 0;
     for (int i = 0; i < cards_.size(); i++) {
-        if (cards_[i].getValue_() > value) { sum++;}
+        if (cards_[i].getValue_().getValue_() > value.getValue_()) { sum++; }
     }
     return sum;
 }

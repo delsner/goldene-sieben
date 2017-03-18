@@ -3,7 +3,6 @@
 //
 
 #include "card.h"
-#include "draw.h"
 #include "player.h"
 
 Player::Player() {
@@ -40,9 +39,9 @@ void Player::reset() {
     stack_ = *(new CardCollection);
 }
 
-Draw Player::request() {
+/*Draw Player::request() {
     return Draw();
-}
+}*/
 
 int Player::getExtra_points_() {
     return pool_cleared_ + stack_.contains(Card(Color::KARO, CardValue::SIEBEN));

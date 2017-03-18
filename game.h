@@ -17,25 +17,32 @@ class Game {
     CardCollection rest_stack_;
 
     // Mitspieler
-    Player players_[];
+    std::vector<Player> players_;
+
+    // shuffle cards
+    void shuffle_cards_();
+
+    // deal cards
+    void deal_cards_();
+
+    // play round
+    void play_round_(Player &player);
+
+    // evaluation of round
+    void evaluate_round_();
+
+    // create players
+    void create_players_(int amount);
+
+    // create gaming card deck
+    void create_card_deck_();
+
 public:
     // start new game
     void start();
 
     // reset game
     void reset();
-
-    // shuffle cards
-    void shuffle_cards();
-
-    // deal cards
-    void deal_cards();
-
-    // play round
-    void play_round(Player &player);
-
-    // evaluation of round
-    void evaluate_round();
 };
 
 
