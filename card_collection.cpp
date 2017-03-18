@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <sys/time.h>
+#include <algorithm>
 #include "card.h"
 #include "card_collection.h"
 
