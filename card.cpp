@@ -6,12 +6,8 @@
 
 using namespace std;
 
-Card::Card(const Color &color_, const CardValue &value_) {
-    cout << "Create new card." << endl;
-    Card::color_ = color_;
-    Card::value_ = value_;
-}
 
+Card::Card(const Color &color_, CardValue value_) : color_(color_), value_(value_) {}
 
 const Color &Card::getColor_() {
     return color_;
@@ -22,9 +18,9 @@ void Card::setColor_(const Color &color_) {
 }
 
 int Card::compare(Card c1, Card c2) {
-    if (c1.value_ > c2.value_) {
+    if (CardValue::compare(c1.getValue_(), c2.getValue_()) == 1) {
         return 1;
-    } else if (c1.value_ < c2.value_) {
+    } else if (CardValue::compare(c1.getValue_(), c2.getValue_()) == -1) {
         return -1;
     } else {
         return 0;
@@ -32,7 +28,7 @@ int Card::compare(Card c1, Card c2) {
 }
 
 bool Card::equals(Card c1, Card c2) {
-    return c1.getValue_() == c2.getValue_() && c1.color_ == c2.color_;
+    return c1.getValue_() == c2.getValue_() && c1.getColor_() == c2.getColor_();
 }
 
 CardValue Card::getValue_() const {
