@@ -7,9 +7,7 @@
 
 using namespace std;
 
-Color::Color(int value_,
-             const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &name_)
-        : value_(value_), name_(name_) {}
+Color::Color(int value_, const string &name_) : value_(value_), name_(name_) {}
 
 Color Color::KARO = Color(1, "KARO");
 Color Color::HERZ = Color(2, "HERZ");

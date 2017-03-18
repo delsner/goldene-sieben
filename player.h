@@ -26,12 +26,12 @@ public:
     Player();
 
     // Handkarten spielen oder erhalten
-    void add_cards_to_inventory(Card cards[]);
+    void add_cards_to_inventory(std::vector<Card> cards);
 
-    void remove_cards_from_inventory(Card cards[]);
+    void remove_cards_from_inventory(std::vector<Card> cards);
 
     // Stiche
-    void add_cards_to_stack(Card cards[]); // for(i in cards){ stack_.add_card_to_collection(cards[i]); }
+    void add_cards_to_stack(std::vector<Card> cards); // for(i in cards){ stack_.add_card_to_collection(cards[i]); }
 
     // Extrapunkte erhöhen
     void increment_extra_points();

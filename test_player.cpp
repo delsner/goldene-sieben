@@ -16,20 +16,20 @@ int main() {
     Card card5(Color::HERZ,CardValue::FUENF);
     Card card6(Color::PIK,CardValue::SIEBEN);
 
-    Card cards[]={card1,card2,card3};
+    std::vector<Card> cards={card1,card2,card3};
 
     player1.add_cards_to_inventory(cards);
     cout << "player cards in inventory: " << endl;
     player1.print_inventory();
 
 
-    Card cardsrm[]={card1};
+    std::vector<Card> cardsrm={card1};
     player1.remove_cards_from_inventory(cardsrm);
     cout << "player cards in inventory after remove: " << endl;
     player1.print_inventory();
 
 
-    Card cards2[]={card4,card5,card6};
+    std::vector<Card> cards2={card4,card5,card6};
     player1.add_cards_to_stack(cards2);
     cout << "player cards in stack: " << endl;
     player1.print_stack();
@@ -41,7 +41,7 @@ int main() {
     cout << "player NUM of KAROS in stack: " << player1.count_karo() <<  endl;
 
 
-    Card cardsC7[]={card3};
+    std::vector<Card> cardsC7={card3};
     player1.add_cards_to_stack(cardsC7);
     cout << "player cards in stack with C7: " << endl;
     player1.print_stack();

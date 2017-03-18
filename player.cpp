@@ -10,20 +10,20 @@ Player::Player() {
     pool_cleared_ = 0;
 }
 
-void Player::add_cards_to_inventory(Card cards[]) {
-    for (int i = 0; i < sizeof(cards); i++) {
+void Player::add_cards_to_inventory(std::vector<Card> cards) {
+    for (int i = 0; i < cards.size(); i++) {
         inventory_.add_card_to_collection(cards[i]);
     }
 }
 
-void Player::remove_cards_from_inventory(Card cards[]) {
-    for (int i = 0; i < sizeof(cards); i++) {
+void Player::remove_cards_from_inventory(std::vector<Card> cards) {
+    for (int i = 0; i < cards.size(); i++) {
         inventory_.remove_card_from_collection(cards[i]);
     }
 }
 
-void Player::add_cards_to_stack(Card cards[]) {
-    for (int i = 0; i < sizeof(cards); i++) {
+void Player::add_cards_to_stack(std::vector<Card> cards) {
+    for (int i = 0; i < cards.size(); i++) {
         stack_.add_card_to_collection(cards[i]);
     }
 }
