@@ -11,6 +11,8 @@
 
 class Draw {
 public:
+    Draw(const Card &card_played, const vector<Card> &cards_taken);
+
     Card card_played;
     std::vector<Card> cards_taken;
 };
