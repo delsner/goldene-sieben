@@ -20,7 +20,7 @@ class Game {
     std::vector<Player> players_;
 
     // letzten Stich genommen
-    Player last_trick_taken_;
+    Player *last_trick_taken_;
 
     // shuffle cards
     void shuffle_cards_();

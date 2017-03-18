@@ -60,8 +60,12 @@ void CardCollection::print_all_cards() {
     }
 }
 
+int get_random_number_(int i) {
+    return std::rand() % i;
+}
+
 void CardCollection::shuffle_cards() {
-    std::random_shuffle(cards_.begin(), cards_.end());
+    std::random_shuffle(cards_.begin(), cards_.end(), get_random_number_);
 }
 
 std::vector<Card> CardCollection::get_first_cards(int amount) {

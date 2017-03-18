@@ -41,7 +41,7 @@ void Game::deal_cards_() {
             }
         } else {
             // all done last player who won a trick gets rest of pool and remove from pool
-            last_trick_taken_.add_cards_to_stack(
+            (*last_trick_taken_).add_cards_to_stack(
                     pool_.get_first_cards(pool_.length())); // TODO: be aware of indices (get_first_cards amount - 1 ?)
         }
     } else {
@@ -63,6 +63,11 @@ void Game::play_draw_(Draw d, Player &player) {
     if (d.cards_taken.size() == 0) {
         pool_.add_card_to_collection(d.card_played);
     } else {
+        // wenn pool gecleared, erhöhe Sonderpunkte
+        if (d.cards_taken.size() > 0 && d.cards_taken.size() == pool_.length()) {
+            player.increment_extra_points();
+        }
+
         // entferne karten aus pool
         for (int i = 0; i < d.cards_taken.size(); i++) {
             pool_.remove_card_from_collection(d.cards_taken[i]);
@@ -70,12 +75,7 @@ void Game::play_draw_(Draw d, Player &player) {
 
         // speichere den Spieler der als letztes Karten aus dem Pool genommen hat
         if (d.cards_taken.size() > 0) {
-            last_trick_taken_ = player;
-        }
-
-        // wenn pool gecleared, erhöhe Sonderpunkte
-        if (d.cards_taken.size() > 0 && d.cards_taken.size() == pool_.length()) {
-            player.increment_extra_points();
+            last_trick_taken_ = &player;
         }
 
         // nehme karten aus pool + selbst gespielte karte und lege sie in eigenen Stich-stapel
@@ -203,3 +203,6 @@ void Game::start() {
 void Game::reset() {
 
 }
+
+
+
