@@ -69,3 +69,7 @@ void Player::print_inventory() {
 void Player::print_stack() {
     stack_.print_all_cards();
 }
+
+CardCollection Player::getInventory_() {
+    return inventory_;
+}

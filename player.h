@@ -25,6 +25,9 @@ public:
     // Initialisiere Extrapoints auf 0
     Player();
 
+    // get inventory
+    CardCollection getInventory_();
+
     // Handkarten spielen oder erhalten
     void add_cards_to_inventory(std::vector<Card> cards);
 

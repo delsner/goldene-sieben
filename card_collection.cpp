@@ -3,6 +3,7 @@
 // Created by Daniel Elsner on 17.03.17.
 //
 
+#include <iostream>
 #include "card.h"
 #include "card_collection.h"
 
@@ -44,7 +45,7 @@ int CardCollection::amount_larger_than_number(CardValue value) {
 int CardCollection::amount_of_color(Color color) {
     int sum = 0;
     for (int i = 0; i < cards_.size(); i++) {
-        if (cards_[i].getColor_() == color) { sum++;}
+        if (cards_[i].getColor_() == color) { sum++; }
     }
     return sum;
 }
@@ -53,4 +54,20 @@ void CardCollection::print_all_cards() {
     for (int i = 0; i < cards_.size(); i++) {
         cout << cards_[i].getColor_() << cards_[i].getValue_() << endl;
     }
+}
+
+void CardCollection::shuffle_cards() {
+    std::random_shuffle(cards_.begin(), cards_.end());
+}
+
+std::vector<Card> CardCollection::get_first_cards(int amount) {
+
+    // erstelle subvektor der zurückgegeben
+    std::vector<Card> subvector;
+    copy(cards_.begin(), cards_.begin() + amount, std::back_inserter(subvector));
+
+    // reduce vector
+    cards_.erase(cards_.begin(), cards_.begin() + amount);
+
+    return subvector;
 }

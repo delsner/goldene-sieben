@@ -26,6 +26,10 @@ public:
 
     // Für die Ausgabe der Karten in Konsole
     void print_all_cards();
+
+    void shuffle_cards();
+
+    std::vector<Card> get_first_cards(int amount);
 };
 
 
