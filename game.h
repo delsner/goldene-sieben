@@ -19,6 +19,9 @@ class Game {
     // Mitspieler
     std::vector<Player> players_;
 
+    // letzten Stich genommen
+    Player last_trick_taken_;
+
     // shuffle cards
     void shuffle_cards_();
 
@@ -27,6 +30,9 @@ class Game {
 
     // play round
     void play_round_(Player &player);
+
+    // play draw
+    void play_draw_(Draw d, Player &player);
 
     // evaluation of round
     void evaluate_round_();
