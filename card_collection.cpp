@@ -71,3 +71,7 @@ std::vector<Card> CardCollection::get_first_cards(int amount) {
 
     return subvector;
 }
+
+vector<Card> CardCollection::getCards_() {
+    return cards_;
+}

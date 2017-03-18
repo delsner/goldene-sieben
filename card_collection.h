@@ -12,6 +12,8 @@
 class CardCollection {
     std::vector<Card> cards_;
 public:
+    vector <Card> getCards_();
+
     void add_card_to_collection(Card card);
 
     void remove_card_from_collection(Card card);
